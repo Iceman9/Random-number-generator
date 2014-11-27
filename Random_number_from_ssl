@@ -1,5 +1,6 @@
 #Playing arround with random number generator
 import ssl
+import numpy as np
 
 def gen_ssl(seq_len,bytes=256,byteorder='little'):
     bits=256*8
