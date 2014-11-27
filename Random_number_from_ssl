@@ -1,0 +1,14 @@
+#Playing arround with random number generator
+import ssl
+
+def gen_ssl(seq_len,bytes=256,byteorder='little'):
+    bits=256*8
+    
+    if seq_len==1:
+        return int.from_bytes(ssl.RAND_bytes(bytes),byteorder=byteorder)
+    else:
+        a=[]
+        for i in range(seq_len):
+            a.append(int.from_bytes(ssl.RAND_bytes(bytes),byteorder=byteorder)
+        a=np.array(a)/2**2048
+        return a
