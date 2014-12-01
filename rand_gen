@@ -1,0 +1,35 @@
+#A random number generator from the Numerical Recipes: Third edition
+import numpy as np
+from time import time
+
+class rand():
+    def __init__(self, seed,v=4101842887655102017,w=1):
+        self.v=np.uint64(v)
+        self.w=np.uint64(w)
+        self.u=np.uint64(v^seed)
+    def internal(self):
+        self.u=self.u*2862933555777941757 +  7046029254386353087
+        self.u=np.uint64(self.u)
+        self.v^=self.v>>np.uint64(17)
+        self.v^=self.v<<np.uint64(31)
+        self.v^=self.v>>np.uint64(8)
+        self.w=np.uint64(4294957665)*(self.w & np.uint64(0xffffffff))+ self.w>>np.uint64(32)
+    def int64(self):
+        self.internal()
+        x=self.u^(self.u<<np.uint64(21))
+        x^=x>>np.uint64(35)
+        x^=x<<np.uint64(4)
+        return (x+self.v)^self.w
+
+    def doub(self):
+         return 5.42101086242752217E-20 * self.int64()
+        
+asd=rand(13333)
+a=[]
+x1=time()
+N=1000000
+for i in range(N):
+    a.append(asd.doub())
+x2=time()
+a=np.array(a)
+print('The time it took to generate ',N,' numbers: ',x2-x1)
